@@ -1,0 +1,45 @@
+@import "~@angular/material/theming";
+
+@mixin sky-layout-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+  mat-sidenav-container {
+    mat-toolbar {
+      button {
+        &.active {
+          color: mat-color($accent, default-contrast);
+          background-color: mat-color($accent);
+        }
+      }
+    }
+
+    mat-sidenav {
+      .mat-list-item {
+        &.active {
+          color: mat-color($accent, default-contrast);
+          background-color: mat-color($accent) !important;
+
+          &:hover {
+            background-color: mat-color($accent, darker) !important;
+          }
+        }
+      }
+    }
+
+    .footer {
+      color: mat-color($primary, lighter);
+      background-color: mat-color($primary, darker);
+
+      .signature {
+        a {
+          color: mat-color($primary, lighter);
+          &:hover {
+            color: mat-color($accent);
+          }
+        }
+      }
+    }
+  }
+}

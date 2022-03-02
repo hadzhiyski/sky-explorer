@@ -1,0 +1,9 @@
+@import "~@angular/material/theming";
+
+@mixin sky-global-theme($theme) {
+  $accent: map-get($theme, accent);
+
+  .active {
+    color: mat-color($accent, darker);
+  }
+}

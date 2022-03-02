@@ -1,0 +1,10 @@
+* {
+  &:active,
+  :focus {
+    outline: none !important;
+  }
+}
+
+a {
+  text-decoration: none;
+}

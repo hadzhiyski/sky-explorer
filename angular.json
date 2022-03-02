@@ -19,7 +19,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "mtb",
+      "prefix": "sky",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -37,6 +37,9 @@
             "styles": [
               "src/styles/index.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["./src/styles/custom"]
+            },
             "scripts": []
           },
           "configurations": {

@@ -1,6 +1,8 @@
 @use "@angular/material" as mat;
 @include mat.core();
 
+@import "reset";
+
 $sky-explorer-web-primary: mat.define-palette(mat.$indigo-palette);
 $sky-explorer-web-accent: mat.define-palette(
   mat.$pink-palette,
@@ -20,7 +22,18 @@ $sky-explorer-web-theme: mat.define-light-theme(
   )
 );
 
+@import "./reset-theme";
+@import "./global-theme";
+@import "../app/layout/components/layout/layout.component.scss-theme.scss";
+
+@mixin sky-custom-components-theme($theme) {
+  @include sky-reset-theme($theme);
+  @include sky-global-theme($theme);
+  @include sky-layout-component-theme($theme);
+}
+
 @include mat.all-component-themes($sky-explorer-web-theme);
+@include sky-custom-components-theme($sky-explorer-web-theme);
 
 @import "global";
 @import "tailwind";

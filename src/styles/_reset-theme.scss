@@ -1,0 +1,29 @@
+@import ".~@angular/material/theming";
+
+@mixin a-hover($color) {
+  &:hover {
+    color: $color;
+    &.mat-button {
+      color: inherit;
+      text-decoration: inherit;
+    }
+  }
+}
+
+@mixin sky-reset-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $foreground: map-get($theme, foreground);
+
+  a {
+    color: mat-color($foreground, text);
+    @include a-hover(mat-color($accent));
+  }
+
+  p {
+    a {
+      color: mat-color($accent);
+      @include a-hover(mat-color($accent, darker));
+    }
+  }
+}
