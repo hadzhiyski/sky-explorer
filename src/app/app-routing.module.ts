@@ -8,6 +8,13 @@ const routes: Routes = [
     pathMatch: 'full',
     component: HomeComponent,
   },
+  {
+    path: 'explorer',
+    loadChildren: () =>
+      import('./modules/explorer/explorer.module').then(
+        (m) => m.ExplorerModule
+      ),
+  },
 ];
 
 @NgModule({
