@@ -44,7 +44,9 @@
               "./node_modules/leaflet/dist/leaflet.css"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["./src/styles/custom"]
+              "includePaths": [
+                "./src/styles/custom"
+              ]
             },
             "scripts": []
           },
@@ -126,7 +128,50 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "geolocation": {
+      "projectType": "library",
+      "root": "projects/geolocation",
+      "sourceRoot": "projects/geolocation/src",
+      "prefix": "sky",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/geolocation/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/geolocation/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/geolocation/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/geolocation/src/test.ts",
+            "tsConfig": "projects/geolocation/tsconfig.spec.json",
+            "karmaConfig": "projects/geolocation/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/geolocation/**/*.ts",
+              "projects/geolocation/**/*.html"
+            ]
           }
         }
       }
