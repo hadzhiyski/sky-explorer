@@ -1,23 +1,27 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ExplorerRoutingModule } from './explorer-routing.module';
-import { StoreModule } from '@ngrx/store';
-import * as fromExplorer from './store/reducers/explorer.reducer';
+import { NgModule } from '@angular/core';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { EffectsModule } from '@ngrx/effects';
-import { ExplorerEffects } from './store/effects/explorer.effects';
+import { StoreModule } from '@ngrx/store';
 import { ExplorerComponent } from './components/explorer/explorer.component';
-
+import { ExplorerRoutingModule } from './explorer-routing.module';
+import { ExplorerEffects } from './store/effects/explorer.effects';
+import * as fromExplorer from './store/reducers/explorer.reducer';
 
 @NgModule({
-  declarations: [
-    ExplorerComponent
-  ],
+  declarations: [ExplorerComponent],
   imports: [
     CommonModule,
+
+    LeafletModule,
+
+    StoreModule.forFeature(
+      fromExplorer.explorerFeatureKey,
+      fromExplorer.reducer
+    ),
+    EffectsModule.forFeature([ExplorerEffects]),
+
     ExplorerRoutingModule,
-    StoreModule.forFeature(fromExplorer.explorerFeatureKey, fromExplorer.reducer),
-    EffectsModule.forFeature([ExplorerEffects])
-  ]
+  ],
 })
-export class ExplorerModule { }
+export class ExplorerModule {}
