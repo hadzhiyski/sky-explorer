@@ -5,6 +5,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { ExplorerComponent } from './components/explorer/explorer.component';
 import { ExplorerRoutingModule } from './explorer-routing.module';
+import { AirportsService } from './services';
 import { ExplorerEffects } from './store/effects/explorer.effects';
 import * as fromExplorer from './store/reducers/explorer.reducer';
 
@@ -23,5 +24,6 @@ import * as fromExplorer from './store/reducers/explorer.reducer';
 
     ExplorerRoutingModule,
   ],
+  providers: [AirportsService],
 })
 export class ExplorerModule {}

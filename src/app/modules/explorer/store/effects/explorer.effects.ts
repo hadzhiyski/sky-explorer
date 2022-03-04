@@ -1,25 +1,40 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY, of } from 'rxjs';
-import { catchError, concatMap, map } from 'rxjs/operators';
+import { LatLng } from 'leaflet';
+import { of } from 'rxjs';
+import { catchError, concatMap, map, switchMap } from 'rxjs/operators';
+import { AirportsService } from '../../services';
 import * as ExplorerActions from '../actions/explorer.actions';
 
 @Injectable()
 export class ExplorerEffects {
-  loadExplorers$ = createEffect(() => {
+  setMapBounds$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(ExplorerActions.loadExplorers),
-      concatMap(() =>
-        /** An EMPTY observable only emits completion. Replace with your own observable API request */
-        EMPTY.pipe(
-          map((data) => ExplorerActions.loadExplorersSuccess({ data })),
-          catchError((error) =>
-            of(ExplorerActions.loadExplorersFailure({ error }))
+      ofType(ExplorerActions.setMapBounds),
+      switchMap((action: { sw: LatLng; ne: LatLng }) => {
+        return of(
+          ExplorerActions.loadAirports({ sw: action.sw, ne: action.ne })
+        );
+      })
+    );
+  });
+
+  loadAirports$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ExplorerActions.loadAirports),
+      concatMap((action: { sw: LatLng; ne: LatLng }) =>
+        this.airportService.loadAirports(action).pipe(
+          map((airports) => ExplorerActions.loadAirportsSuccess({ airports })),
+          catchError((err) =>
+            of(ExplorerActions.loadAirportsFailure({ error: err }))
           )
         )
       )
     );
   });
 
-  constructor(private actions$: Actions) {}
+  constructor(
+    private actions$: Actions,
+    private airportService: AirportsService
+  ) {}
 }
